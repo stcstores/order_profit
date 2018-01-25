@@ -1,0 +1,2 @@
+tabler
+git+https://github.com/stcstores/ccapi.git
