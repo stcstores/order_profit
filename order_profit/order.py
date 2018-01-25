@@ -5,8 +5,9 @@ class Order:
 
     def __init__(self, update, dispatch_order):
         self.update = update
-        self.order_id = dispatch_order.order_id
         self.dispatch_order = dispatch_order
+        self.order_id = int(self.dispatch_order.order_id)
+        self.customer_id = int(self.dispatch_order.customer_id)
         self.date_recieved = self.dispatch_order.date_recieved
         self.dispatch_date = self.dispatch_order.dispatch_date
         self.products = [
