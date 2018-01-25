@@ -7,6 +7,8 @@ class Order:
         self.update = update
         self.order_id = dispatch_order.order_id
         self.dispatch_order = dispatch_order
+        self.date_recieved = self.dispatch_order.date_recieved
+        self.dispatch_date = self.dispatch_order.dispatch_date
         self.products = [
             Product(self.update, p) for p in dispatch_order.products]
         self.price = int(float(self.dispatch_order.total_gross_gbp) * 100)
