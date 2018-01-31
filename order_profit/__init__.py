@@ -7,6 +7,7 @@ from .order import Order
 class OrderProfit:
 
     countries = Countries()
+    number_of_days = 1
 
     def __init__(self):
         self.courier_rules = CCAPI.get_courier_rules()
@@ -17,7 +18,8 @@ class OrderProfit:
         self.orders.sort(key=lambda x: (x.profit_vat is None, x.profit_vat))
 
     def get_orders(self):
-        return CCAPI.get_orders_for_dispatch(order_type=1, number_of_days=1)
+        return CCAPI.get_orders_for_dispatch(
+            order_type=1, number_of_days=self.number_of_days)
 
     def filter_orders(self, orders):
         orders = [  # Filter resends
