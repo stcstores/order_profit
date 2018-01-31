@@ -12,6 +12,8 @@ class Product:
         self.inventory_product = self.get_product()
         self.weight = self.order_product.per_item_weight
         self.purchase_price = self.calculate_purchase_price()
+        self.department = self.inventory_product.options[
+            'Department'].value.value
         self.vat_rate = self.get_vat_rate()
 
     def get_vat_rate(self):

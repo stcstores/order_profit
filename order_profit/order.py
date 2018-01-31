@@ -15,6 +15,7 @@ class Order:
         self.price = int(float(self.dispatch_order.total_gross_gbp) * 100)
         self.country_code = dispatch_order.delivery_country_code
         self.country = self.update.countries[self.country_code]
+        self.department = self.get_department()
         self.weight = sum([p.weight * p.quantity for p in self.products])
         self.item_count = sum([p.quantity for p in self.products])
         self.vat_rate = self.calculate_vat()
@@ -56,3 +57,9 @@ class Order:
     def get_courier(self):
         return self.update.shipping_rules.get_shipping_rule(
             self.country_code, self.get_courier_rule_id())
+
+    def get_department(self):
+        departments = list(set([p.department for p in self.products]))
+        if len(departments) == 1:
+            return departments[0]
+        return 'Mixed: {}'.format(', '.join(departments))
