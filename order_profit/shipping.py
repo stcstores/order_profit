@@ -135,7 +135,7 @@ class SpringPAP(Spring):
 
 class UKCourier(Courier):
     name = 'UK Courier'
-    item_price = 630  # CHECK
+    item_price = 700
     rule_ids = [11422]
 
 
