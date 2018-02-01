@@ -17,9 +17,7 @@ class Product:
         self.vat_rate = self.get_vat_rate()
 
     def get_vat_rate(self):
-        if self.inventory_product.vat_rate in ('Vat Exempt', 'Zero Rated'):
-            return 0
-        return int(self.inventory_product.vat_rate.replace('%', ''))
+        return int(self.inventory_product.vat_rate)
 
     def get_product(self):
         if self.order_product.product_id in self.update.products:
