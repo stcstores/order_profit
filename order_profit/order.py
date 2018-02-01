@@ -10,8 +10,13 @@ class Order:
         self.customer_id = int(self.dispatch_order.customer_id)
         self.date_recieved = self.dispatch_order.date_recieved
         self.dispatch_date = self.dispatch_order.dispatch_date
-        self.products = [
-            Product(self.update, p) for p in dispatch_order.products]
+        self.products = []
+        for product in dispatch_order.products:
+            try:
+                self.products.append(Product(self.update, product))
+            except Exception as e:
+                print('Error with product {}.'.format(product.sku))
+                raise e
         self.price = int(float(self.dispatch_order.total_gross_gbp) * 100)
         self.country_code = dispatch_order.delivery_country_code
         self.country = self.update.countries[self.country_code]
