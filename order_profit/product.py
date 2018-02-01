@@ -8,6 +8,7 @@ class Product:
     def __init__(self, update, order_product):
         self.update = update
         self.order_product = order_product
+        self.sku = self.order_product.sku
         self.quantity = self.order_product.quantity
         self.inventory_product = self.get_product()
         self.weight = self.order_product.per_item_weight
