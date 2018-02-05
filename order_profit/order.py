@@ -56,7 +56,8 @@ class Order:
                 r.name == courier_name][0]
         except IndexError:
             raise Exception(
-                'No courier rule found with name {}.'.format(courier_name))
+                'No courier rule found with name {} for order {}.'.format(
+                    courier_name, self.order_id))
         return rule.id
 
     def get_courier(self):

@@ -2,6 +2,7 @@ from ccapi import CCAPI
 from .countries import Countries
 from . shipping import ShippingRules
 from .order import Order
+import sys
 
 
 class OrderProfit:
@@ -29,6 +30,12 @@ class OrderProfit:
     def process_orders(self, orders):
         processed_orders = []
         for i, order in enumerate(orders):
-            processed_orders.append(Order(self, order))
-            print('Processing order {} of {}'.format(i + 1, len(orders)))
+            try:
+                processed_orders.append(Order(self, order))
+            except Exception as e:
+                print('Error processing order {}.'.format(order.order_id))
+                raise e
+            percentage = int(((i + 1) / len(orders)) * 100)
+            sys.stdout.write("\r{}%".format(percentage))
+            sys.stdout.flush()
         return processed_orders

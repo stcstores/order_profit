@@ -37,12 +37,13 @@ class Product:
 
     def calculate_purchase_price(self):
         purchase_price = 0
-        for attempt in range(100):
+        for attempt in range(250):
             try:
                 purchase_price += int(float(
                     self.inventory_product.options[
                         'Purchase Price'].value.value) * 100)
-            except Exception:
+            except Exception as e:
+                print(e)
                 continue
             else:
                 break
