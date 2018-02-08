@@ -38,4 +38,6 @@ class OrderProfit:
             percentage = int(((i + 1) / len(orders)) * 100)
             sys.stdout.write("\r{}%".format(percentage))
             sys.stdout.flush()
+        sys.stdout.write('\r\n')
+        sys.stdout.flush()
         return processed_orders
