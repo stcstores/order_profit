@@ -1,5 +1,6 @@
 import os
 
+from forex_python.converter import CurrencyRates
 from tabler import Tabler as Table
 
 
@@ -38,9 +39,23 @@ class Country:
         self.name = self.row['Country']
         self.region = self.row['Region']
         self.iso_code = self.row['ISO Code']
+        self.currency_code = self.row['Currency'] or None
+        self.min_channel_fee_local = float(self.row['Min Channel Fee'])
+        if self.currency_code is None or self.currency_code == 'GBP':
+            self.currency_rate = 1
+        else:
+            self.currency_rates = CurrencyRates()
+            self.currency_rate = self.currency_rates.get_rate(
+                str(self.currency_code), 'GBP')
         self.services = {
             service: Service(row[service + ' Item'], row[service + ' KG']) for
             service in ('PAK', 'PAT', 'PAR', 'PAP') if row[service + ' Item']}
+        self.min_channel_fee = self.get_min_channel_fee()
+
+    def get_min_channel_fee(self):
+        if self.currency_code is None:
+            return 0
+        return int((self.min_channel_fee_local * self.currency_rate) * 100)
 
     def __repr__(self):
         return self.name

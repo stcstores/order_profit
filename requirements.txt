@@ -1,2 +1,3 @@
 tabler
 git+https://github.com/stcstores/ccapi.git
+forex-python==0.3.3

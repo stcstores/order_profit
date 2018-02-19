@@ -28,7 +28,7 @@ class Order:
             [p.purchase_price * p.quantity for p in self.products])
         self.courier = self.get_courier()
         self.postage_price = self.courier.calculate_price(self)
-        self.channel_fee = int(float(self.price / 100) * 15)
+        self.channel_fee = self.get_channel_fee()
         self.profit = self.price - sum([
             self.postage_price, self.purchase_price, self.channel_fee])
         if self.vat_rate is not None:
@@ -37,6 +37,12 @@ class Order:
         else:
             self.vat = None
             self.profit_vat = None
+
+    def get_channel_fee(self):
+        fee = int(float(self.price / 100) * 15)
+        if fee < self.country.min_channel_fee:
+            return self.country.min_channel_fee
+        return fee
 
     def calculate_vat(self):
         if self.country.region == self.country.REST_OF_WORLD:
