@@ -16,9 +16,18 @@ class Product:
         self.department = self.inventory_product.options[
             'Department'].value.value
         self.vat_rate = self.get_vat_rate()
+        self.product_id = self.inventory_product.id
+        self.range_id = self.inventory_product.range_id
+        self.name = self.inventory_product.full_name
 
     def get_vat_rate(self):
         return int(self.inventory_product.vat_rate)
+
+    def to_dict(self):
+        return {
+            'sku': self.sku, 'product_id': self.product_id,
+            'range_id': self.range_id, 'name': self.name,
+            'quantity': self.quantity}
 
     def get_product(self):
         if self.order_product.product_id in self.update.products:

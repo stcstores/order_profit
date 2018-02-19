@@ -1,3 +1,5 @@
+import json
+
 from .product import Product
 
 
@@ -37,6 +39,9 @@ class Order:
         else:
             self.vat = None
             self.profit_vat = None
+
+    def serialize_products(self):
+        return json.dumps([p.to_dict() for p in self.products])
 
     def get_channel_fee(self):
         fee = int(float(self.price / 100) * 15)
