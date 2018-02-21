@@ -1,7 +1,7 @@
 import os
 
 from forex_python.converter import CurrencyRates
-from tabler import Tabler as Table
+from tabler import CSV, Table
 
 
 class Countries:
@@ -12,7 +12,7 @@ class Countries:
         self.countries = {int(country.id): country for country in country_list}
 
     def get_table(self):
-        return Table(filename=self.get_table_path())
+        return Table(self.get_table_path(), table_type=CSV())
 
     def get_table_path(self):
         filename = 'cc_countries.csv'
