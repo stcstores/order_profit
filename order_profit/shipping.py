@@ -61,6 +61,18 @@ class Courier(ShippingRule):
         return rule_id in cls.rule_ids
 
 
+class Prime(ShippingRule):
+
+    name = 'Prime'
+    rule_ids = [15401, 15402, 15403, 15434, 15435, 15436]
+    countries = [1]
+    item_price = 312
+
+    @classmethod
+    def matches(cls, country_id, rule_id):
+        return rule_id in cls.rule_ids
+
+
 class RoyalMailUntracked48(RoyalMail):
     name = 'Royal Mail Untracked 48 Packet'
     item_price = 215
