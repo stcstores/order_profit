@@ -73,6 +73,20 @@ class Prime(ShippingRule):
         return rule_id in cls.rule_ids
 
 
+class Prime48(Prime):
+    name = 'Prime 48'
+    rule_ids = [15436]
+    countries = [1]
+    item_price = 312
+
+
+class Prime24(Prime):
+    name = 'Prime 24'
+    rule_ids = [15434, 15435]
+    countries = [1]
+    item_price = 550
+
+
 class RoyalMailUntracked48(RoyalMail):
     name = 'Royal Mail Untracked 48 Packet'
     item_price = 215
