@@ -29,6 +29,30 @@ class ShippingRule:
         return int(order_weight / 1000 * cls.kg_price)
 
 
+class SecuredMailInternational(ShippingRule):
+    service = 'PAK'
+
+    @classmethod
+    def calculate_price(cls, order):
+        return order.country.services[cls.service].calculate_price(
+            order.weight)
+
+    @classmethod
+    def matches(cls, country_id, rule_id):
+        return rule_id in cls.rule_ids
+
+
+class SecuredMailInternationalUntracked(SecuredMailInternational):
+    name = 'Secured Mail International Untracked'
+    item_price = 9999
+    rule_ids = [16416, 16417]
+
+
+class SecuredMailInternationalTracked(SecuredMailInternational):
+    name = 'Secured Mail International Tracked'
+    rule_ids = [16419]
+
+
 class RoyalMail(ShippingRule):
     countries = [1, 14, 88, 103, 119]
 

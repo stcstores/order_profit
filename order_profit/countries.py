@@ -32,6 +32,7 @@ class Countries:
 class Country:
     REST_OF_WORLD = 'ROW'
     EUROPE = 'EU'
+    SERVICE_CODES = ('PAK', 'PAT', 'PAR', 'PAP')
 
     def __init__(self, row):
         self.row = row
@@ -49,7 +50,7 @@ class Country:
                 str(self.currency_code), 'GBP')
         self.services = {
             service: Service(row[service + ' Item'], row[service + ' KG']) for
-            service in ('PAK', 'PAT', 'PAR', 'PAP') if row[service + ' Item']}
+            service in self.SERVICE_CODES if row[service + ' Item']}
         self.min_channel_fee = self.get_min_channel_fee()
 
     def get_min_channel_fee(self):
