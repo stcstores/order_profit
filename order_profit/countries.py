@@ -32,7 +32,7 @@ class Countries:
 class Country:
     REST_OF_WORLD = 'ROW'
     EUROPE = 'EU'
-    SERVICE_CODES = ('PAK', 'PAT', 'PAR', 'PAP')
+    SERVICE_CODES = ('PAK', 'PAT', 'PAR', 'PAP', 'SMIU', 'SMIT')
 
     def __init__(self, row):
         self.row = row

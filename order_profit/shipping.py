@@ -30,7 +30,6 @@ class ShippingRule:
 
 
 class SecuredMailInternational(ShippingRule):
-    service = 'PAK'
 
     @classmethod
     def calculate_price(cls, order):
@@ -44,12 +43,14 @@ class SecuredMailInternational(ShippingRule):
 
 class SecuredMailInternationalUntracked(SecuredMailInternational):
     name = 'Secured Mail International Untracked'
+    service = 'SMIU'
     item_price = 9999
     rule_ids = [16416, 16417]
 
 
 class SecuredMailInternationalTracked(SecuredMailInternational):
     name = 'Secured Mail International Tracked'
+    service = 'SMIT'
     rule_ids = [16419]
 
 
