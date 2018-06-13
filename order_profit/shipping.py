@@ -150,7 +150,7 @@ class RoyalMail24LargeLetter(RoyalMail):
 
 class RoyalMailHeavyAndLarge48(RoyalMail):
     name = 'Royal Mail Heavy and Large 48'
-    item_price = 312
+    item_price = 399
     rule_ids = [9814]
 
 
