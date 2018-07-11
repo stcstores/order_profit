@@ -46,13 +46,37 @@ class ShippingRule:
     @classmethod
     def calculate_kg_price(cls, order_weight):
         """
-        Return kilogram cos to ship an order.
+        Return kilogram cost to ship an order.
 
         Args:
             order_weight: The total weight of the order in grams.
 
         """
         return int(order_weight / 1000 * cls.kg_price)
+
+
+class ErrorShippingRule(ShippingRule):
+    """Shipping rule for orders sent with the error shipping rule."""
+
+    rule_ids = [10008]
+    name = 'Error'
+
+    @classmethod
+    def matches(cls, country_id, rule_id):
+        """
+        Return True if this shipping rule is applicable.
+
+        Args:
+            country_id: The country ID to which the order was sent.
+            rule_id: The shipping rule applied to the order.
+
+        """
+        return rule_id in cls.rule_ids
+
+    @classmethod
+    def calculate_price(self, order):
+        """No price can be provided as this is an invalid shipping rule."""
+        return 0
 
 
 class SecuredMailInternational(ShippingRule):
