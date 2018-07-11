@@ -68,11 +68,11 @@ class Order:
         self.courier = self.get_courier()
         self.postage_price = self.courier.calculate_price(self)
         self.channel_fee = self.get_channel_fee()
-        self.profit = self.price - sum(
-            [self.postage_price, self.purchase_price, self.channel_fee])
+        self.profit = self.get_profit(
+            self.price, self.purchase_price, self.channel_fee)
         if self.vat_rate is not None:
             self.vat = int((self.price / 100) * self.vat_rate)
-            self.profit_vat = self.profit - self.vat
+            self.profit_vat = self.get_profit_vat(self.profit, self.vat)
         else:
             self.vat = None
             self.profit_vat = None
@@ -87,6 +87,21 @@ class Order:
         if fee < self.country.min_channel_fee:
             return self.country.min_channel_fee
         return fee
+
+    def get_profit(self, price, purchase_price, channel_fee):
+        """Return the profit made on the order before VAT."""
+        if self.courier.is_valid_service is True:
+            return price - sum(
+                [self.postage_price, self.purchase_price, self.channel_fee])
+        else:
+            return 0
+
+    def get_profit_vat(self, profit, vat):
+        """Return the profit made on the order after VAT."""
+        if self.courier.is_valid_service is True:
+            return profit - vat
+        else:
+            return 0
 
     def calculate_vat(self):
         """Return VAT charged on the order, if calculable."""

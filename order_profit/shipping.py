@@ -24,6 +24,7 @@ class ShippingRule:
     rule_ids = []
     EU_country_ids = [c.id for c in countries if c.region == 'EU']
     ROW_country_ids = [c.id for c in countries if c.region == 'ROW']
+    is_valid_service = True
 
     def __repr__(self):
         return self.name
@@ -60,6 +61,7 @@ class ErrorShippingRule(ShippingRule):
 
     rule_ids = [10008]
     name = 'Error'
+    is_valid_service = False
 
     @classmethod
     def matches(cls, country_id, rule_id):
