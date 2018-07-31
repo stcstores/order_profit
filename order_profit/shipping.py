@@ -81,6 +81,33 @@ class ErrorShippingRule(ShippingRule):
         return 0
 
 
+class SecuredMailRoyalMail(ShippingRule):
+    """Base rule for UK orders sent through Secured Mail and Royal Mail."""
+
+    @classmethod
+    def calculate_price(cls, order):
+        """
+        Return cost to ship an order.
+
+        Args:
+            order_weight: The total weight of the order in grams.
+
+        """
+        return cls.item_price
+
+    @classmethod
+    def matches(cls, country_id, rule_id):
+        """
+        Return True if this shipping rule is applicable.
+
+        Args:
+            country_id: The country ID to which the order was sent.
+            rule_id: The shipping rule applied to the order.
+
+        """
+        return rule_id in cls.rule_ids
+
+
 class SecuredMailInternational(ShippingRule):
     """Base shipping rule for Secured Mail international post."""
 
@@ -222,6 +249,22 @@ class Prime(ShippingRule):
 
         """
         return rule_id in cls.rule_ids
+
+
+class SecuredMailRoyalMailPacket(SecuredMailRoyalMail):
+    """Shipping rule for Royal Mail packets sent throgh Secured Mail."""
+
+    name = 'Secured Mail Royal Mail Packet'
+    rule_ids = [18777, 18781]
+    item_price = 175
+
+
+class SecuredMailRoyalMailLargeLetter(SecuredMailRoyalMail):
+    """Shipping rule for Royal Mail large letters sent throgh Secured Mail."""
+
+    name = 'Secured Mail Royal Mail Large Letter'
+    rule_ids = [18779, 18780]
+    item_price = 60
 
 
 class Prime48(Prime):
