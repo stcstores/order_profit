@@ -6,10 +6,10 @@ name = "pypi"
 [packages]
 tabler = "*"
 forex-python = "*"
-ccapi = {git = "https://github.com/stcstores/ccapi.git", ref="stcadmin"}
+ccapi = {git = "https://github.com/stcstores/ccapi.git", ref="master"}
 "e1839a8" = {path = ".", editable = true}
 
 [dev-packages]
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
