@@ -27,12 +27,14 @@ class OrderProfit:
     def get_orders(self):
         """Return dispatched orders from Cloud Commerce."""
         return CCAPI.get_orders_for_dispatch(
-            order_type=1, number_of_days=self.number_of_days)
+            order_type=1, number_of_days=self.number_of_days
+        )
 
     def filter_orders(self, orders):
         """Return filtered list of orders."""
         orders = [  # Filter resends
-            order for order in orders if float(order.total_gross_gbp) > 0]
+            order for order in orders if float(order.total_gross_gbp) > 0
+        ]
         return orders
 
     def process_orders(self, orders):
@@ -42,11 +44,11 @@ class OrderProfit:
             try:
                 processed_orders.append(Order(self, order))
             except Exception as e:
-                print('Error processing order {}.'.format(order.order_id))
+                print("Error processing order {}.".format(order.order_id))
                 raise e
             percentage = int(((i + 1) / len(orders)) * 100)
             sys.stdout.write("\r{}%".format(percentage))
             sys.stdout.flush()
-        sys.stdout.write('\r\n')
+        sys.stdout.write("\r\n")
         sys.stdout.flush()
         return processed_orders

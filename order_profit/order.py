@@ -54,7 +54,7 @@ class Order:
             try:
                 self.products.append(Product(self.update, product))
             except Exception as e:
-                print('Error with product {}.'.format(product.sku))
+                print("Error with product {}.".format(product.sku))
                 raise e
         self.price = int(float(self.dispatch_order.total_gross_gbp) * 100)
         self.country_code = dispatch_order.delivery_country_code
@@ -64,12 +64,12 @@ class Order:
         self.item_count = sum([p.quantity for p in self.products])
         self.vat_rate = self.calculate_vat()
         self.purchase_price = sum(
-            [p.purchase_price * p.quantity for p in self.products])
+            [p.purchase_price * p.quantity for p in self.products]
+        )
         self.courier = self.get_courier()
         self.postage_price = self.courier.calculate_price(self)
         self.channel_fee = self.get_channel_fee()
-        self.profit = self.get_profit(
-            self.price, self.purchase_price, self.channel_fee)
+        self.profit = self.get_profit(self.price, self.purchase_price, self.channel_fee)
         if self.vat_rate is not None:
             self.vat = int((self.price / 100) * self.vat_rate)
             self.profit_vat = self.get_profit_vat(self.profit, self.vat)
@@ -92,7 +92,8 @@ class Order:
         """Return the profit made on the order before VAT."""
         if self.courier.is_valid_service is True:
             return price - sum(
-                [self.postage_price, self.purchase_price, self.channel_fee])
+                [self.postage_price, self.purchase_price, self.channel_fee]
+            )
         else:
             return 0
 
@@ -116,25 +117,26 @@ class Order:
 
     def get_courier_rule_id(self):
         """Return the Shipping Rule ID used for the order."""
-        courier_name = self.dispatch_order.default_cs_rule_name.split(' - ')[0]
+        courier_name = self.dispatch_order.default_cs_rule_name.split(" - ")[0]
         try:
-            rule = [
-                r for r in self.update.courier_rules if r.name == courier_name
-            ][0]
+            rule = [r for r in self.update.courier_rules if r.name == courier_name][0]
         except IndexError:
             raise Exception(
-                'No courier rule found with name {} for order {}.'.format(
-                    courier_name, self.order_id))
+                "No courier rule found with name {} for order {}.".format(
+                    courier_name, self.order_id
+                )
+            )
         return rule.id
 
     def get_courier(self):
         """Return the shipping rule used by the order."""
         return self.update.shipping_rules.get_shipping_rule(
-            self.country_code, self.get_courier_rule_id())
+            self.country_code, self.get_courier_rule_id()
+        )
 
     def get_department(self):
         """Return the department to which the ordered products belong."""
         departments = list(set([p.department for p in self.products]))
         if len(departments) == 1:
             return departments[0]
-        return 'Mixed: {}'.format(', '.join(departments))
+        return "Mixed: {}".format(", ".join(departments))

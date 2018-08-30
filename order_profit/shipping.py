@@ -22,8 +22,8 @@ class ShippingRule:
     name = None
     countries = []
     rule_ids = []
-    EU_country_ids = [c.id for c in countries if c.region == 'EU']
-    ROW_country_ids = [c.id for c in countries if c.region == 'ROW']
+    EU_country_ids = [c.id for c in countries if c.region == "EU"]
+    ROW_country_ids = [c.id for c in countries if c.region == "ROW"]
     is_valid_service = True
 
     def __repr__(self):
@@ -60,7 +60,7 @@ class ErrorShippingRule(ShippingRule):
     """Shipping rule for orders sent with the error shipping rule."""
 
     rule_ids = [10008]
-    name = 'Error'
+    name = "Error"
     is_valid_service = False
 
     @classmethod
@@ -120,8 +120,7 @@ class SecuredMailInternational(ShippingRule):
             order_weight: The total weight of the order in grams.
 
         """
-        return order.country.services[cls.service].calculate_price(
-            order.weight)
+        return order.country.services[cls.service].calculate_price(order.weight)
 
     @classmethod
     def matches(cls, country_id, rule_id):
@@ -139,8 +138,8 @@ class SecuredMailInternational(ShippingRule):
 class SecuredMailInternationalUntracked(SecuredMailInternational):
     """Shipping rule for Secured Mail International Untracked."""
 
-    name = 'Secured Mail International Untracked'
-    service = 'SMIU'
+    name = "Secured Mail International Untracked"
+    service = "SMIU"
     item_price = 9999
     rule_ids = [16416, 16417]
 
@@ -148,8 +147,8 @@ class SecuredMailInternationalUntracked(SecuredMailInternational):
 class SecuredMailInternationalTracked(SecuredMailInternational):
     """Shipping rule for Secured Mail International Tracked."""
 
-    name = 'Secured Mail International Tracked'
-    service = 'SMIT'
+    name = "Secured Mail International Tracked"
+    service = "SMIT"
     rule_ids = [16419]
 
 
@@ -167,9 +166,7 @@ class RoyalMail(ShippingRule):
             rule_id: The shipping rule applied to the order.
 
         """
-        return (
-            int(rule_id) in self.rule_ids
-            and int(country_id) in self.countries)
+        return int(rule_id) in self.rule_ids and int(country_id) in self.countries
 
     def calculate_price(self, order):
         """
@@ -197,9 +194,7 @@ class Spring(ShippingRule):
             rule_id: The shipping rule applied to the order.
 
         """
-        return (
-            int(rule_id) in cls.rule_ids
-            and int(country_id) not in cls.countries)
+        return int(rule_id) in cls.rule_ids and int(country_id) not in cls.countries
 
     @classmethod
     def calculate_price(cls, order):
@@ -210,8 +205,7 @@ class Spring(ShippingRule):
             order_weight: The total weight of the order in grams.
 
         """
-        return order.country.services[cls.service].calculate_price(
-            order.weight)
+        return order.country.services[cls.service].calculate_price(order.weight)
 
 
 class Courier(ShippingRule):
@@ -233,7 +227,7 @@ class Courier(ShippingRule):
 class Prime(ShippingRule):
     """Base shipping rule for Amazon Prime shipping services."""
 
-    name = 'Prime'
+    name = "Prime"
     rule_ids = [15401, 15402, 15403, 15434, 15435, 15436]
     countries = [1]
     item_price = 312
@@ -254,7 +248,7 @@ class Prime(ShippingRule):
 class SecuredMailRoyalMailPacket(SecuredMailRoyalMail):
     """Shipping rule for Royal Mail packets sent throgh Secured Mail."""
 
-    name = 'Secured Mail Royal Mail Packet'
+    name = "Secured Mail Royal Mail Packet"
     rule_ids = [18777, 18781]
     item_price = 175
 
@@ -262,7 +256,7 @@ class SecuredMailRoyalMailPacket(SecuredMailRoyalMail):
 class SecuredMailRoyalMailLargeLetter(SecuredMailRoyalMail):
     """Shipping rule for Royal Mail large letters sent throgh Secured Mail."""
 
-    name = 'Secured Mail Royal Mail Large Letter'
+    name = "Secured Mail Royal Mail Large Letter"
     rule_ids = [18779, 18780]
     item_price = 60
 
@@ -270,7 +264,7 @@ class SecuredMailRoyalMailLargeLetter(SecuredMailRoyalMail):
 class Prime48(Prime):
     """Shipping rule for Amazon Prime 48 hour shipping service."""
 
-    name = 'Prime 48'
+    name = "Prime 48"
     rule_ids = [15436]
     countries = [1]
     item_price = 312
@@ -279,7 +273,7 @@ class Prime48(Prime):
 class Prime24(Prime):
     """Shipping rule for Amazon Prime 24 hour shipping service."""
 
-    name = 'Prime 24'
+    name = "Prime 24"
     rule_ids = [15434, 15435]
     countries = [1]
     item_price = 550
@@ -288,7 +282,7 @@ class Prime24(Prime):
 class RoyalMailUntracked48(RoyalMail):
     """Shipping rule for Royal Mail Untracked 48 shipping service."""
 
-    name = 'Royal Mail Untracked 48 Packet'
+    name = "Royal Mail Untracked 48 Packet"
     item_price = 215
     rule_ids = [9584, 10580]
 
@@ -296,7 +290,7 @@ class RoyalMailUntracked48(RoyalMail):
 class RoyalMailUntracked24(RoyalMail):
     """Shipping rule for Royal Mail Untracked 24 shipping service."""
 
-    name = 'Royal Mail Untracked 28'
+    name = "Royal Mail Untracked 28"
     item_price = 278
     rule_ids = [9583]
 
@@ -304,7 +298,7 @@ class RoyalMailUntracked24(RoyalMail):
 class RoyalMailTracked48Packet(RoyalMail):
     """Shipping rule for Royal Mail Tracked 48 shipping service."""
 
-    name = 'Royal Mail Tracked 48 Packet'
+    name = "Royal Mail Tracked 48 Packet"
     item_price = 397
     rule_ids = [9586]
 
@@ -312,7 +306,7 @@ class RoyalMailTracked48Packet(RoyalMail):
 class RoyalMailTracked24Packet(RoyalMail):
     """Shipping rule for Royal Mail Tracked 24 shipping service."""
 
-    name = 'Royal Mail Tracked 24 Packet'
+    name = "Royal Mail Tracked 24 Packet"
     item_price = 517
     rule_ids = [9585]
 
@@ -320,7 +314,7 @@ class RoyalMailTracked24Packet(RoyalMail):
 class RoyalMail48LargeLetter(RoyalMail):
     """Shipping rule for Royal Mail Large Letter 48 shipping service."""
 
-    name = 'Royal Mail 48 Large Letter'
+    name = "Royal Mail 48 Large Letter"
     item_price = 65
     rule_ids = [9588, 10579]
 
@@ -328,7 +322,7 @@ class RoyalMail48LargeLetter(RoyalMail):
 class RoyalMail24LargeLetter(RoyalMail):
     """Shipping rule for Royal Mail Large Letter 24 shipping service."""
 
-    name = 'Royal Mail 24 Large Letter'
+    name = "Royal Mail 24 Large Letter"
     item_price = 113
     rule_ids = [9587]
 
@@ -336,7 +330,7 @@ class RoyalMail24LargeLetter(RoyalMail):
 class RoyalMailHeavyAndLarge48(RoyalMail):
     """Shipping rule for Royal Mail Heavy and Large 48 shipping service."""
 
-    name = 'Royal Mail Heavy and Large 48'
+    name = "Royal Mail Heavy and Large 48"
     item_price = 399
     rule_ids = [9814]
 
@@ -344,7 +338,7 @@ class RoyalMailHeavyAndLarge48(RoyalMail):
 class RoyalMailHeavyAndLarge24(RoyalMail):
     """Shipping rule for Royal Mail Heavy and Large 24 shipping service."""
 
-    name = 'Royal Mail Heavy and Large 24'
+    name = "Royal Mail Heavy and Large 24"
     item_price = 517
     rule_ids = [10114]
 
@@ -352,39 +346,39 @@ class RoyalMailHeavyAndLarge24(RoyalMail):
 class SpringPAK(Spring):
     """Shipping rule for Spring Untracked International."""
 
-    name = 'Spring Untracked (PAK)'
-    service = 'PAK'
+    name = "Spring Untracked (PAK)"
+    service = "PAK"
     rule_ids = [11747, 13771]
 
 
 class SpringPAR(Spring):
     """Shipping rule for Spring Parcel International."""
 
-    name = 'Spring Parcel (PAR)'
-    service = 'PAR'
+    name = "Spring Parcel (PAR)"
+    service = "PAR"
     rule_ids = [13764, 13769, 13992]
 
 
 class SpringPAT(Spring):
     """Shipping rule for Spring Tracked International."""
 
-    name = 'Spring Tracked (PAT)'
-    service = 'PAT'
+    name = "Spring Tracked (PAT)"
+    service = "PAT"
     rule_ids = [13451]
 
 
 class SpringPAP(Spring):
     """Shipping rule for Spring Signed International."""
 
-    name = 'Spring Signed (PAP)'
-    service = 'PAP'
+    name = "Spring Signed (PAP)"
+    service = "PAP"
     rule_ids = [13768, 13936]
 
 
 class UKCourier(Courier):
     """Shipping rule for UK couriers."""
 
-    name = 'UK Courier'
+    name = "UK Courier"
     item_price = 700
     rule_ids = [11422]
 
@@ -392,7 +386,7 @@ class UKCourier(Courier):
 class EUCourier(Courier):
     """Shipping rule for EU couriers."""
 
-    name = 'EU Courier'
+    name = "EU Courier"
     item_price = 1800
     countries = Courier.EU_country_ids
     rule_ids = [11243, 11245, 16886]
@@ -401,7 +395,7 @@ class EUCourier(Courier):
 class ROWCourier(Courier):
     """Shipping rule for non EU couriers."""
 
-    name = 'ROW Courier'
+    name = "ROW Courier"
     item_price = 2200
     countries = Courier.ROW_country_ids
     rule_ids = [10284, 10390]
@@ -420,7 +414,8 @@ class ShippingRules:
     def __init__(self):
         """Load shipping rules."""
         self.shipping_rules = [
-            cls() for cls in all_subclasses(ShippingRule)
+            cls()
+            for cls in all_subclasses(ShippingRule)
             if len(cls.__subclasses__()) == 0
         ]
 
@@ -433,9 +428,7 @@ class ShippingRules:
             rule_id: The shipping rule applied to the order.
 
         """
-        return [
-            r for r in self.shipping_rules if r.matches(country_id, rule_id)
-        ]
+        return [r for r in self.shipping_rules if r.matches(country_id, rule_id)]
 
     def get_shipping_rule(self, country_id, rule_id):
         """

@@ -33,7 +33,7 @@ class Countries:
 
     def get_table_path(self):
         """Return full path to country data .csv."""
-        filename = 'cc_countries.csv'
+        filename = "cc_countries.csv"
         file_path = __file__
         directory = os.path.dirname(file_path)
         file_path = os.path.join(directory, filename)
@@ -66,9 +66,9 @@ class Country:
 
     """
 
-    REST_OF_WORLD = 'ROW'
-    EUROPE = 'EU'
-    SERVICE_CODES = ('PAK', 'PAT', 'PAR', 'PAP', 'SMIU', 'SMIT')
+    REST_OF_WORLD = "ROW"
+    EUROPE = "EU"
+    SERVICE_CODES = ("PAK", "PAT", "PAR", "PAP", "SMIU", "SMIT")
 
     def __init__(self, row):
         """
@@ -78,21 +78,23 @@ class Country:
             row: Table row from 'countries.csv'.
         """
         self.row = row
-        self.id = self.row['ID']
-        self.name = self.row['Country']
-        self.region = self.row['Region']
-        self.iso_code = self.row['ISO Code']
-        self.currency_code = self.row['Currency'] or None
-        self.min_channel_fee_local = float(self.row['Min Channel Fee'])
-        if self.currency_code is None or self.currency_code == 'GBP':
+        self.id = self.row["ID"]
+        self.name = self.row["Country"]
+        self.region = self.row["Region"]
+        self.iso_code = self.row["ISO Code"]
+        self.currency_code = self.row["Currency"] or None
+        self.min_channel_fee_local = float(self.row["Min Channel Fee"])
+        if self.currency_code is None or self.currency_code == "GBP":
             self.currency_rate = 1
         else:
             self.currency_rates = CurrencyRates()
             self.currency_rate = self.currency_rates.get_rate(
-                str(self.currency_code), 'GBP')
+                str(self.currency_code), "GBP"
+            )
         self.services = {
-            service: Service(row[service + ' Item'], row[service + ' KG'])
-            for service in self.SERVICE_CODES if row[service + ' Item']
+            service: Service(row[service + " Item"], row[service + " KG"])
+            for service in self.SERVICE_CODES
+            if row[service + " Item"]
         }
         self.min_channel_fee = self.get_min_channel_fee()
 

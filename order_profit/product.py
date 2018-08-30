@@ -40,8 +40,7 @@ class Product:
         self.inventory_product = self.get_product()
         self.weight = self.order_product.per_item_weight
         self.purchase_price = self.calculate_purchase_price()
-        self.department = self.inventory_product.options[
-            'Department'].value.value
+        self.department = self.inventory_product.options["Department"].value.value
         self.vat_rate = self.get_vat_rate()
         self.product_id = self.inventory_product.id
         self.range_id = self.inventory_product.range_id
@@ -54,11 +53,11 @@ class Product:
     def to_dict(self):
         """Return product info as a dict."""
         return {
-            'sku': self.sku,
-            'product_id': self.product_id,
-            'range_id': self.range_id,
-            'name': self.name,
-            'quantity': self.quantity
+            "sku": self.sku,
+            "product_id": self.product_id,
+            "range_id": self.range_id,
+            "name": self.name,
+            "quantity": self.quantity,
         }
 
     def get_product(self):
@@ -80,8 +79,7 @@ class Product:
             else:
                 break
         else:
-            raise Exception(
-                'Unable to load product {}.'.format(self.order_product.sku))
+            raise Exception("Unable to load product {}.".format(self.order_product.sku))
 
     def calculate_purchase_price(self):
         """Return the purchase price of the product."""
@@ -89,9 +87,9 @@ class Product:
         for attempt in range(250):
             try:
                 purchase_price += int(
-                    float(
-                        self.inventory_product.options['Purchase Price']
-                        .value.value) * 100)
+                    float(self.inventory_product.options["Purchase Price"].value.value)
+                    * 100
+                )
             except Exception as e:
                 print(e)
                 continue
@@ -99,5 +97,6 @@ class Product:
                 break
         else:
             raise Exception(
-                'Cannot load purchase price for product {}'.format(self.sku))
+                "Cannot load purchase price for product {}".format(self.sku)
+            )
         return purchase_price

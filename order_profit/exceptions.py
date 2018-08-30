@@ -10,7 +10,7 @@ class ShippingRuleNotFound(Exception):
 class NoShippingRule(ShippingRuleNotFound):
     """Raised when no shipping rule can be found for an order."""
 
-    text = 'No shipping rules matching country_id {} and rule_id {}'
+    text = "No shipping rules matching country_id {} and rule_id {}"
 
     def __init__(self, country_id, rule_id):
         """
@@ -27,9 +27,7 @@ class NoShippingRule(ShippingRuleNotFound):
 class TooManyShippingRules(ShippingRuleNotFound):
     """Raised when multiple shipping rules are found for an order."""
 
-    text = (
-        'Too many shipping rules ({}) found matching country_id {} and '
-        'rule_id {}')
+    text = "Too many shipping rules ({}) found matching country_id {} and " "rule_id {}"
 
     def __init__(self, rules, country_id, rule_id):
         """
@@ -41,5 +39,4 @@ class TooManyShippingRules(ShippingRuleNotFound):
                 be found.
             rule_id: The ID of the shipping rule applied to the order.
         """
-        return super().__init__(
-            self.text.format(len(rules), country_id, rule_id))
+        return super().__init__(self.text.format(len(rules), country_id, rule_id))
