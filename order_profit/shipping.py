@@ -249,7 +249,7 @@ class SecuredMailRoyalMailPacket(SecuredMailRoyalMail):
     """Shipping rule for Royal Mail packets sent throgh Secured Mail."""
 
     name = "Secured Mail Royal Mail Packet"
-    rule_ids = [18777, 18781]
+    rule_ids = [18777]
     item_price = 175
 
 
