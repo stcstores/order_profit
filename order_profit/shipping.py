@@ -81,33 +81,6 @@ class ErrorShippingRule(ShippingRule):
         return 0
 
 
-class SecuredMailRoyalMail(ShippingRule):
-    """Base rule for UK orders sent through Secured Mail and Royal Mail."""
-
-    @classmethod
-    def calculate_price(cls, order):
-        """
-        Return cost to ship an order.
-
-        Args:
-            order_weight: The total weight of the order in grams.
-
-        """
-        return cls.item_price
-
-    @classmethod
-    def matches(cls, country_id, rule_id):
-        """
-        Return True if this shipping rule is applicable.
-
-        Args:
-            country_id: The country ID to which the order was sent.
-            rule_id: The shipping rule applied to the order.
-
-        """
-        return rule_id in cls.rule_ids
-
-
 class SecuredMailInternational(ShippingRule):
     """Base shipping rule for Secured Mail international post."""
 
@@ -179,35 +152,6 @@ class RoyalMail(ShippingRule):
         return self.item_price
 
 
-class Spring(ShippingRule):
-    """Base shipping rule for Spring shipping services."""
-
-    countries = [1]
-
-    @classmethod
-    def matches(cls, country_id, rule_id):
-        """
-        Return True if this shipping rule is applicable.
-
-        Args:
-            country_id: The country ID to which the order was sent.
-            rule_id: The shipping rule applied to the order.
-
-        """
-        return int(rule_id) in cls.rule_ids and int(country_id) not in cls.countries
-
-    @classmethod
-    def calculate_price(cls, order):
-        """
-        Return cost to ship an order.
-
-        Args:
-            order_weight: The total weight of the order in grams.
-
-        """
-        return order.country.services[cls.service].calculate_price(order.weight)
-
-
 class Courier(ShippingRule):
     """Base shipping rule for Courier shipping services."""
 
@@ -243,22 +187,6 @@ class Prime(ShippingRule):
 
         """
         return rule_id in cls.rule_ids
-
-
-class SecuredMailRoyalMailPacket(SecuredMailRoyalMail):
-    """Shipping rule for Royal Mail packets sent throgh Secured Mail."""
-
-    name = "Secured Mail Royal Mail Packet"
-    rule_ids = [18777]
-    item_price = 175
-
-
-class SecuredMailRoyalMailLargeLetter(SecuredMailRoyalMail):
-    """Shipping rule for Royal Mail large letters sent throgh Secured Mail."""
-
-    name = "Secured Mail Royal Mail Large Letter"
-    rule_ids = [18779, 18780]
-    item_price = 60
 
 
 class Prime48(Prime):
@@ -341,38 +269,6 @@ class RoyalMailHeavyAndLarge24(RoyalMail):
     name = "Royal Mail Heavy and Large 24"
     item_price = 517
     rule_ids = [10114]
-
-
-class SpringPAK(Spring):
-    """Shipping rule for Spring Untracked International."""
-
-    name = "Spring Untracked (PAK)"
-    service = "PAK"
-    rule_ids = [11747, 13771]
-
-
-class SpringPAR(Spring):
-    """Shipping rule for Spring Parcel International."""
-
-    name = "Spring Parcel (PAR)"
-    service = "PAR"
-    rule_ids = [13764, 13769, 13992]
-
-
-class SpringPAT(Spring):
-    """Shipping rule for Spring Tracked International."""
-
-    name = "Spring Tracked (PAT)"
-    service = "PAT"
-    rule_ids = [13451]
-
-
-class SpringPAP(Spring):
-    """Shipping rule for Spring Signed International."""
-
-    name = "Spring Signed (PAP)"
-    service = "PAP"
-    rule_ids = [13768, 13936]
 
 
 class UKCourier(Courier):
