@@ -285,7 +285,7 @@ class EUCourier(Courier):
     name = "EU Courier"
     item_price = 1800
     countries = Courier.EU_country_ids
-    rule_ids = [11243, 11245, 16886]
+    rule_ids = [11243, 11245, 16886, 21557]
 
 
 class ROWCourier(Courier):
