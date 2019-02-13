@@ -207,6 +207,24 @@ class Prime24(Prime):
     item_price = 400
 
 
+class PrimeSmallAndLightPrimeCustomer(Prime):
+    """Shipping rule for the Amazon Prime Small and Light shipping service."""
+
+    name = "Prime Small and Light Prime Customer"
+    rule_ids = [20268]
+    countries = [1]
+    item_price = 300
+
+
+class PrimeSmallAndLightNonPrimeCustomer(Prime):
+    """Shipping rule for the Amazon Prime SMall and Light shipping service."""
+
+    name = "Prime Small and Light Non Prime Customer"
+    rule_ids = [22452]
+    countries = [1]
+    item_price = 215
+
+
 class RoyalMailUntracked48(RoyalMail):
     """Shipping rule for Royal Mail Untracked 48 shipping service."""
 
