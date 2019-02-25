@@ -59,7 +59,7 @@ class ShippingRule:
 class ErrorShippingRule(ShippingRule):
     """Shipping rule for orders sent with the error shipping rule."""
 
-    rule_ids = [10008]
+    rule_ids = [10008, 9723, 13797]
     name = "Error"
     is_valid_service = False
 
@@ -303,7 +303,7 @@ class EUCourier(Courier):
     name = "EU Courier"
     item_price = 1800
     countries = Courier.EU_country_ids
-    rule_ids = [11243, 11245, 16886, 21557]
+    rule_ids = [11243, 11245, 16886, 21557, 22715]
 
 
 class ROWCourier(Courier):
