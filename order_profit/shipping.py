@@ -229,7 +229,7 @@ class RoyalMailUntracked48(RoyalMail):
     """Shipping rule for Royal Mail Untracked 48 shipping service."""
 
     name = "Royal Mail Untracked 48 Packet"
-    item_price = 215
+    item_price = 226
     rule_ids = [9584, 18781]
 
 
@@ -237,7 +237,7 @@ class RoyalMailUntracked24(RoyalMail):
     """Shipping rule for Royal Mail Untracked 24 shipping service."""
 
     name = "Royal Mail Untracked 28"
-    item_price = 278
+    item_price = 283
     rule_ids = [9583]
 
 
@@ -261,7 +261,7 @@ class RoyalMail48LargeLetter(RoyalMail):
     """Shipping rule for Royal Mail Large Letter 48 shipping service."""
 
     name = "Royal Mail 48 Large Letter"
-    item_price = 65
+    item_price = 70
     rule_ids = [9588, 18780]
 
 
@@ -269,7 +269,7 @@ class RoyalMail24LargeLetter(RoyalMail):
     """Shipping rule for Royal Mail Large Letter 24 shipping service."""
 
     name = "Royal Mail 24 Large Letter"
-    item_price = 113
+    item_price = 91
     rule_ids = [9587, 10579]
 
 
