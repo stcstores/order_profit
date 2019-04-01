@@ -195,7 +195,7 @@ class Prime48(Prime):
     name = "Prime 48"
     rule_ids = [15436]
     countries = [1]
-    item_price = 300
+    item_price = 374
 
 
 class Prime24(Prime):
@@ -204,7 +204,7 @@ class Prime24(Prime):
     name = "Prime 24"
     rule_ids = [15434, 15435]
     countries = [1]
-    item_price = 400
+    item_price = 866
 
 
 class PrimeSmallAndLightPrimeCustomer(Prime):
@@ -245,7 +245,7 @@ class RoyalMailTracked48Packet(RoyalMail):
     """Shipping rule for Royal Mail Tracked 48 shipping service."""
 
     name = "Royal Mail Tracked 48 Packet"
-    item_price = 300
+    item_price = 374
     rule_ids = [9586]
 
 
@@ -253,7 +253,7 @@ class RoyalMailTracked24Packet(RoyalMail):
     """Shipping rule for Royal Mail Tracked 24 shipping service."""
 
     name = "Royal Mail Tracked 24 Packet"
-    item_price = 400
+    item_price = 866
     rule_ids = [9585, 10580]
 
 
@@ -277,7 +277,7 @@ class RoyalMailHeavyAndLarge48(RoyalMail):
     """Shipping rule for Royal Mail Heavy and Large 48 shipping service."""
 
     name = "Royal Mail Heavy and Large 48"
-    item_price = 399
+    item_price = 374
     rule_ids = [9814]
 
 
@@ -285,7 +285,7 @@ class RoyalMailHeavyAndLarge24(RoyalMail):
     """Shipping rule for Royal Mail Heavy and Large 24 shipping service."""
 
     name = "Royal Mail Heavy and Large 24"
-    item_price = 517
+    item_price = 866
     rule_ids = [10114]
 
 
