@@ -2,7 +2,7 @@
 
 import os
 
-from forex_python.converter import CurrencyRates
+import requests
 from tabler import CSV, Table
 
 
@@ -87,10 +87,7 @@ class Country:
         if self.currency_code is None or self.currency_code == "GBP":
             self.currency_rate = 1
         else:
-            self.currency_rates = CurrencyRates()
-            self.currency_rate = self.currency_rates.get_rate(
-                str(self.currency_code), "GBP"
-            )
+            self.currency_rate = self.current_rate()
         self.services = {
             service: Service(row[service + " Item"], row[service + " KG"])
             for service in self.SERVICE_CODES
@@ -109,6 +106,20 @@ class Country:
 
     def __getitem__(self, key):
         return self.services[key]
+
+    def get_exchange_rates(self):
+        """Return the exchange rates for the country's currency."""
+        URL = f"https://api.exchangerate-api.com/v4/latest/{self.currency_code}"
+        response = requests.get(URL)
+        response.raise_for_status()
+        return response.json()["rates"]
+
+    def current_rate(self):
+        """Return current currency conversion rate to GBP."""
+        if self.currency_code == "GBP":
+            return 1
+        rates = self.get_exchange_rates()
+        return rates["GBP"]
 
 
 class Service:
