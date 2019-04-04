@@ -24,7 +24,7 @@ setuptools.setup(
     url=about["__url__"],
     author=about["__author__"],
     author_email=about["__author_email__"],
-    nstall_requires=["tabler"],
+    install_requires=["tabler"],
     packages=setuptools.find_packages(),
     include_package_data=True,
 )

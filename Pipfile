@@ -5,7 +5,6 @@ name = "pypi"
 
 [packages]
 tabler = "*"
-forex-python = "*"
 ccapi = {git = "https://github.com/stcstores/ccapi.git", ref="master"}
 "e1839a8" = {path = ".", editable = true}
 
