@@ -12,11 +12,11 @@ from .shipping import ShippingRules
 class OrderProfit:
     """Retrive Profit/Loss data from Cloud Commerce Pro."""
 
-    countries = Countries()
     number_of_days = 1
 
     def __init__(self):
         """Load Profit/Loss data from Cloud Commerce."""
+        self.countries = Countries()
         self.courier_rules = CCAPI.get_courier_rules()
         self.shipping_rules = ShippingRules()
         self.products = {}
