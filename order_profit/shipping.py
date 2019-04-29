@@ -246,7 +246,7 @@ class RoyalMailTracked48Packet(RoyalMail):
 
     name = "Royal Mail Tracked 48 Packet"
     item_price = 302
-    rule_ids = [9586]
+    rule_ids = [9586, 23750]
 
 
 class RoyalMailTracked24Packet(RoyalMail):
@@ -262,7 +262,7 @@ class RoyalMail48LargeLetter(RoyalMail):
 
     name = "Royal Mail 48 Large Letter"
     item_price = 70
-    rule_ids = [9588, 18780]
+    rule_ids = [9588, 18780, 23751]
 
 
 class RoyalMail24LargeLetter(RoyalMail):
