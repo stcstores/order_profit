@@ -122,7 +122,7 @@ class SecuredMailInternationalTracked(SecuredMailInternational):
 
     name = "Secured Mail International Tracked"
     service = "SMIT"
-    rule_ids = [16419]
+    rule_ids = [16419, 24903]
 
 
 class RoyalMail(ShippingRule):
