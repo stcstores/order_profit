@@ -294,7 +294,7 @@ class UKCourier(Courier):
 
     name = "UK Courier"
     item_price = 700
-    rule_ids = [11422]
+    rule_ids = [11422, 25764]
 
 
 class EUCourier(Courier):
