@@ -301,7 +301,7 @@ class EUCourier(Courier):
     """Shipping rule for EU couriers."""
 
     name = "EU Courier"
-    item_price = 1800
+    item_price = 1200
     countries = Courier.EU_country_ids
     rule_ids = [11243, 11245, 16886, 21557, 22715]
 
