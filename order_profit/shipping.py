@@ -217,12 +217,21 @@ class PrimeSmallAndLightPrimeCustomer(Prime):
 
 
 class PrimeSmallAndLightNonPrimeCustomer(Prime):
-    """Shipping rule for the Amazon Prime SMall and Light shipping service."""
+    """Shipping rule for the Amazon Prime Small and Light shipping service."""
 
     name = "Prime Small and Light Non Prime Customer"
     rule_ids = [22452]
     countries = [1]
     item_price = 215
+
+
+class PrimeEurope(Prime):
+    """Shipping rule for Amazon Prime delivery in Europe."""
+
+    name = "Prime Europe (DHL)"
+    rule_ids = [26310]
+    countries = ShippingRule.EU_country_ids
+    item_price = 1200
 
 
 class RoyalMailUntracked48(RoyalMail):
