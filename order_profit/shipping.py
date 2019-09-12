@@ -189,22 +189,13 @@ class Prime(ShippingRule):
         return rule_id in cls.rule_ids
 
 
-class Prime48(Prime):
-    """Shipping rule for Amazon Prime 48 hour shipping service."""
-
-    name = "Prime 48"
-    rule_ids = [15436]
-    countries = [1]
-    item_price = 302
-
-
 class Prime24(Prime):
     """Shipping rule for Amazon Prime 24 hour shipping service."""
 
     name = "Prime 24"
     rule_ids = [15434, 15435]
     countries = [1]
-    item_price = 458
+    item_price = 520
 
 
 class PrimeSmallAndLightPrimeCustomer(Prime):
@@ -254,7 +245,7 @@ class RoyalMailTracked48Packet(RoyalMail):
     """Shipping rule for Royal Mail Tracked 48 shipping service."""
 
     name = "Royal Mail Tracked 48 Packet"
-    item_price = 302
+    item_price = 350
     rule_ids = [9586, 23750]
 
 
@@ -262,7 +253,7 @@ class RoyalMailTracked24Packet(RoyalMail):
     """Shipping rule for Royal Mail Tracked 24 shipping service."""
 
     name = "Royal Mail Tracked 24 Packet"
-    item_price = 302
+    item_price = 520
     rule_ids = [9585, 10580]
 
 
