@@ -1,6 +1,10 @@
 """The Order class."""
 
+import logging
+
 from .product import Product
+
+logger = logging.getLogger("order_profit")
 
 
 class Order:
@@ -49,16 +53,25 @@ class Order:
         self.customer_id = int(self.dispatch_order.customer_id)
         self.date_recieved = self.dispatch_order.date_recieved
         self.dispatch_date = self.dispatch_order.dispatch_date
-        self.products = []
-        for product in dispatch_order.products:
-            try:
-                self.products.append(Product(self.update, product))
-            except Exception as e:
-                print("Error with product {}.".format(product.sku))
-                raise e
-        self.price = int(float(self.dispatch_order.total_gross_gbp) * 100)
         self.country_code = dispatch_order.delivery_country_code
         self.country = self.update.countries[self.country_code]
+        self.price = int(float(self.dispatch_order.total_gross_gbp) * 100)
+        self.purchase_price = None
+        self.courier = None
+        self.item_count = None
+        self.postage_price = None
+        self.products = []
+        self.error = False
+        try:
+            self.process()
+        except Exception as e:
+            logger.exception(e)
+            self.error = True
+
+    def process(self):
+        """Process the details of the order."""
+        for product in self.dispatch_order.products:
+            self.products.append(Product(self.update, product))
         self.department = self.get_department()
         self.weight = sum([p.weight * p.quantity for p in self.products])
         self.item_count = sum([p.quantity for p in self.products])

@@ -93,7 +93,15 @@ class SecuredMailInternational(ShippingRule):
             order_weight: The total weight of the order in grams.
 
         """
-        return order.country.services[cls.service].calculate_price(order.weight)
+        try:
+            return order.country.services[cls.service].calculate_price(order.weight)
+        except KeyError:
+            raise Exception(
+                (
+                    f'No price for service "{cls.service}" to {order.country.name} for '
+                    f"order {order.order_id}."
+                )
+            )
 
     @classmethod
     def matches(cls, country_id, rule_id):

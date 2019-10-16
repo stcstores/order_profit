@@ -22,7 +22,6 @@ class OrderProfit:
         self.products = {}
         orders = self.filter_orders(self.get_orders())
         self.orders = self.process_orders(orders)
-        self.orders.sort(key=lambda x: (x.profit_vat is None, x.profit_vat))
 
     def get_orders(self):
         """Return dispatched orders from Cloud Commerce."""
@@ -41,14 +40,10 @@ class OrderProfit:
         """Return list of orders as order_profit.order.Order."""
         processed_orders = []
         for i, order in enumerate(orders):
-            try:
-                processed_orders.append(Order(self, order))
-            except Exception as e:
-                print("Error processing order {}.".format(order.order_id))
-                raise e
-            percentage = int(((i + 1) / len(orders)) * 100)
-            sys.stdout.write("\r{}%".format(percentage))
-            sys.stdout.flush()
-        sys.stdout.write("\r\n")
-        sys.stdout.flush()
+            order = Order(self, order)
+            processed_orders.append(order)
+            print(
+                f"Processing order {order.order_id} ({i + 1} of {len(orders)})",
+                file=sys.stderr,
+            )
         return processed_orders
