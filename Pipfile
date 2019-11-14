@@ -5,10 +5,16 @@ name = "pypi"
 
 [packages]
 tabler = "*"
-ccapi = {git = "https://github.com/stcstores/ccapi.git", ref="master"}
-"e1839a8" = {path = ".", editable = true}
+ccapi = {git = "https://github.com/stcstores/ccapi.git",ref = "master"}
+e1839a8 = {path = ".",editable = true}
 
 [dev-packages]
+flake8 = "*"
+flake8-docstrings = "*"
+black = {git = "https://github.com/psf/black.git",ref = "master",editable = true}
+pytest = "*"
+pytest-cov = "*"
+coveralls = "*"
 
 [requires]
 python_version = "3.8"
