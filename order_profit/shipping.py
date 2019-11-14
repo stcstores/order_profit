@@ -323,6 +323,43 @@ class ROWCourier(Courier):
     rule_ids = [10284, 10390]
 
 
+class ParcelForceEUPriority(Courier):
+    """Base shipping rule for Parcel Force EU priority."""
+
+    rule_ids = [27514]
+    name = "Parcel Force Euro Priority"
+
+
+class ParcelForceEUPriorityGermany(ParcelForceEUPriority):
+    """Shipping Rule for Parcel Force Priority to Germany."""
+
+    countries = [3]
+    item_price = 660
+
+
+class ParcelForceEUPriorityFrance(ParcelForceEUPriority):
+    """Shipping Rule for Parcel Force Priority to France."""
+
+    countries = [2]
+    item_price = 759
+
+
+class ParcelForceEUPriorityItaly(ParcelForceEUPriority):
+    """Shipping Rule for Parcel Force Priority to Italy."""
+
+    countries = [7]
+    item_price = 1072
+
+
+class ParcelForceUKExpress24(Courier):
+    """Shipping Rule for Parcel Force UK Express 24."""
+
+    name = "Parcel Force UK 24"
+    countries = [1]
+    rule_ids = [26841]
+    item_price = 550
+
+
 def all_subclasses(cls):
     """Return recursive list of all subclasses of cls."""
     return cls.__subclasses__() + [
