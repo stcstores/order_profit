@@ -48,7 +48,10 @@ class Product:
 
     def get_vat_rate(self):
         """Return the product's UK VAT rate."""
-        return int(self.inventory_product.vat_rate)
+        try:
+            return int(self.inventory_product.vat_rate)
+        except Exception:
+            raise Exception(f"Unable to retrive VAT rate for product {self.sku}.")
 
     def to_dict(self):
         """Return product info as a dict."""
