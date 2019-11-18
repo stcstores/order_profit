@@ -326,7 +326,7 @@ class ROWCourier(Courier):
 class ParcelForceEUPriority(Courier):
     """Base shipping rule for Parcel Force EU priority."""
 
-    rule_ids = [27514]
+    rule_ids = [27541]
     name = "Parcel Force Euro Priority"
 
 
