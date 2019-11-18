@@ -333,7 +333,7 @@ class ParcelForceEUPriority(Courier):
 class ParcelForceEUPriorityGermany(ParcelForceEUPriority):
     """Shipping Rule for Parcel Force Priority to Germany."""
 
-    countries = [3]
+    countries = [3, 27]
     item_price = 660
 
 
