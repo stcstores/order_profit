@@ -62,6 +62,15 @@ class Order:
         self.postage_price = None
         self.products = []
         self.error = False
+        self.department = ""
+        self.weight = 0
+        self.item_count = 0
+        self.vat_rate = 0
+        self.purchase_price = 0
+        self.channel_fee = 0
+        self.profit = 0
+        self.vat = 0
+        self.profit_vat = 0
         try:
             self.process()
         except Exception as e:
