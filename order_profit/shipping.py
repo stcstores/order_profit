@@ -327,12 +327,24 @@ class ParcelForceEUPriority(Courier):
     """Base shipping rule for Parcel Force EU priority."""
 
     rule_ids = [27541]
-    name = "Parcel Force Euro Priority"
+
+    @classmethod
+    def matches(cls, country_id, rule_id):
+        """
+        Return True if this shipping rule is applicable.
+
+        Args:
+            country_id: The country ID to which the order was sent.
+            rule_id: The shipping rule applied to the order.
+
+        """
+        return rule_id in cls.rule_ids and country_id in cls.countries
 
 
 class ParcelForceEUPriorityGermany(ParcelForceEUPriority):
     """Shipping Rule for Parcel Force Priority to Germany."""
 
+    name = "Parcel Force Euro Priority Germany"
     countries = [3, 27]
     item_price = 660
 
@@ -340,6 +352,7 @@ class ParcelForceEUPriorityGermany(ParcelForceEUPriority):
 class ParcelForceEUPriorityFrance(ParcelForceEUPriority):
     """Shipping Rule for Parcel Force Priority to France."""
 
+    name = "Parcel Force Euro Priority France"
     countries = [2]
     item_price = 759
 
@@ -347,6 +360,7 @@ class ParcelForceEUPriorityFrance(ParcelForceEUPriority):
 class ParcelForceEUPriorityItaly(ParcelForceEUPriority):
     """Shipping Rule for Parcel Force Priority to Italy."""
 
+    name = "Parcel Force Euro Priority Italy"
     countries = [7]
     item_price = 1072
 
