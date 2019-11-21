@@ -79,9 +79,9 @@ class Order:
 
     def process(self):
         """Process the details of the order."""
-        self.department = self.get_department()
         for product in self.dispatch_order.products:
             self.products.append(Product(self.update, product))
+        self.department = self.get_department()
         self.weight = sum([p.weight * p.quantity for p in self.products])
         self.item_count = sum([p.quantity for p in self.products])
         self.vat_rate = self.calculate_vat()
@@ -161,4 +161,4 @@ class Order:
         departments = list(set([p.department for p in self.products]))
         if len(departments) == 1:
             return departments[0]
-        return "Mixed: {}".format(", ".join(departments))
+        return "Mixed"
