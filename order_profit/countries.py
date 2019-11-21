@@ -70,6 +70,8 @@ class Country:
     EUROPE = "EU"
     SERVICE_CODES = ("PAK", "PAT", "PAR", "PAP", "SMIU", "SMIT")
 
+    _currency_rate = None
+
     def __init__(self, row):
         """
         Load country information from table row.
@@ -85,18 +87,24 @@ class Country:
         self.iso_code = self.row["ISO Code"]
         self.currency_code = self.row["Currency"] or None
         self.min_channel_fee_local = float(self.row["Min Channel Fee"])
-        if self.currency_code is None or self.currency_code == "GBP":
-            self.currency_rate = 1
-        else:
-            self.currency_rate = self.current_rate()
         self.services = {
             service: Service(row[service + " Item"], row[service + " KG"])
             for service in self.SERVICE_CODES
             if row[service + " Item"]
         }
-        self.min_channel_fee = self.get_min_channel_fee()
 
-    def get_min_channel_fee(self):
+    @property
+    def currency_rate(self):
+        """Return the current conversion rate for the countries currency to GBP."""
+        if self._currency_rate is None:
+            if self.currency_code is None or self.currency_code == "GBP":
+                self._currency_rate = 1
+            else:
+                self._currency_rate = self.current_rate()
+        return self._currency_rate
+
+    @property
+    def min_channel_fee(self):
         """Return minimum channel fee for country."""
         if self.currency_code is None:
             return 0
