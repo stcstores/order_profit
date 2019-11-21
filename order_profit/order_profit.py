@@ -4,7 +4,6 @@ import sys
 
 from ccapi import CCAPI
 
-from .countries import Countries
 from .order import Order
 from .shipping import ShippingRules
 
@@ -16,7 +15,6 @@ class OrderProfit:
 
     def __init__(self):
         """Load Profit/Loss data from Cloud Commerce."""
-        self.countries = Countries()
         self.courier_rules = CCAPI.get_courier_rules()
         self.shipping_rules = ShippingRules()
         self.products = {}

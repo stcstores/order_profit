@@ -1,6 +1,7 @@
 """Shipping rules used to send orders."""
 
 from . import exceptions
+from .countries import countries
 
 
 class ShippingRule:
@@ -10,7 +11,7 @@ class ShippingRule:
         item_price: The price of shipping per item in GBP pence.
         kg_price: The price of shipping per kilogram in GBP pence.
         name: The name of the shipping rule.
-        countries: List of country IDs of countries to which this shipping rule
+        country_ids: List of country IDs of country_ids to which this shipping rule
             can be used.
         rule_ids: List of Cloud Commerce Shipping Rule IDs which match this
             shipping rule.
@@ -20,7 +21,7 @@ class ShippingRule:
     item_price = None
     kg_price = None
     name = None
-    countries = []
+    country_ids = []
     rule_ids = []
     EU_country_ids = [c.id for c in countries if c.region == "EU"]
     ROW_country_ids = [c.id for c in countries if c.region == "ROW"]
@@ -55,6 +56,21 @@ class ShippingRule:
         """
         return int(order_weight / 1000 * cls.kg_price)
 
+    def matches(self, country_id, rule_id):
+        """
+        Return True if this shipping rule is applicable.
+
+        Args:
+            country_id: The country ID to which the order was sent.
+            rule_id: The shipping rule applied to the order.
+
+        """
+        rule_matches = self.rule_ids is None or int(rule_id) in self.rule_ids
+        country_matches = (
+            self.country_ids is None or int(country_id) in self.country_ids
+        )
+        return rule_matches and country_matches
+
 
 class ErrorShippingRule(ShippingRule):
     """Shipping rule for orders sent with the error shipping rule."""
@@ -64,18 +80,6 @@ class ErrorShippingRule(ShippingRule):
     is_valid_service = False
 
     @classmethod
-    def matches(cls, country_id, rule_id):
-        """
-        Return True if this shipping rule is applicable.
-
-        Args:
-            country_id: The country ID to which the order was sent.
-            rule_id: The shipping rule applied to the order.
-
-        """
-        return rule_id in cls.rule_ids
-
-    @classmethod
     def calculate_price(self, order):
         """No price can be provided as this is an invalid shipping rule."""
         return 0
@@ -83,6 +87,8 @@ class ErrorShippingRule(ShippingRule):
 
 class SecuredMailInternational(ShippingRule):
     """Base shipping rule for Secured Mail international post."""
+
+    country_ids = None
 
     @classmethod
     def calculate_price(cls, order):
@@ -102,18 +108,6 @@ class SecuredMailInternational(ShippingRule):
                     f"order {order.order_id}."
                 )
             )
-
-    @classmethod
-    def matches(cls, country_id, rule_id):
-        """
-        Return True if this shipping rule is applicable.
-
-        Args:
-            country_id: The country ID to which the order was sent.
-            rule_id: The shipping rule applied to the order.
-
-        """
-        return rule_id in cls.rule_ids
 
 
 class SecuredMailInternationalUntracked(SecuredMailInternational):
@@ -136,18 +130,7 @@ class SecuredMailInternationalTracked(SecuredMailInternational):
 class RoyalMail(ShippingRule):
     """Base shipping rule for Royal Mail shipping services."""
 
-    countries = [1, 14, 88, 103, 119]
-
-    def matches(self, country_id, rule_id):
-        """
-        Return True if this shipping rule is applicable.
-
-        Args:
-            country_id: The country ID to which the order was sent.
-            rule_id: The shipping rule applied to the order.
-
-        """
-        return int(rule_id) in self.rule_ids and int(country_id) in self.countries
+    country_ids = [1, 14, 88, 103, 119]
 
     def calculate_price(self, order):
         """
@@ -163,17 +146,7 @@ class RoyalMail(ShippingRule):
 class Courier(ShippingRule):
     """Base shipping rule for Courier shipping services."""
 
-    @classmethod
-    def matches(cls, country_id, rule_id):
-        """
-        Return True if this shipping rule is applicable.
-
-        Args:
-            country_id: The country ID to which the order was sent.
-            rule_id: The shipping rule applied to the order.
-
-        """
-        return rule_id in cls.rule_ids
+    pass
 
 
 class Prime(ShippingRule):
@@ -181,20 +154,8 @@ class Prime(ShippingRule):
 
     name = "Prime"
     rule_ids = [15401, 15402, 15403, 15434, 15435, 15436]
-    countries = [1]
+    country_ids = [1]
     item_price = 312
-
-    @classmethod
-    def matches(cls, country_id, rule_id):
-        """
-        Return True if this shipping rule is applicable.
-
-        Args:
-            country_id: The country ID to which the order was sent.
-            rule_id: The shipping rule applied to the order.
-
-        """
-        return rule_id in cls.rule_ids
 
 
 class Prime24(Prime):
@@ -202,7 +163,7 @@ class Prime24(Prime):
 
     name = "Prime 24"
     rule_ids = [15434, 15435]
-    countries = [1]
+    country_ids = [1]
     item_price = 520
 
 
@@ -211,7 +172,7 @@ class PrimeSmallAndLightPrimeCustomer(Prime):
 
     name = "Prime Small and Light Prime Customer"
     rule_ids = [20268]
-    countries = [1]
+    country_ids = [1]
     item_price = 300
 
 
@@ -220,7 +181,7 @@ class PrimeSmallAndLightNonPrimeCustomer(Prime):
 
     name = "Prime Small and Light Non Prime Customer"
     rule_ids = [22452]
-    countries = [1]
+    country_ids = [1]
     item_price = 215
 
 
@@ -229,7 +190,7 @@ class PrimeEurope(Prime):
 
     name = "Prime Europe (DHL)"
     rule_ids = [26310]
-    countries = ShippingRule.EU_country_ids
+    country_ids = ShippingRule.EU_country_ids
     item_price = 1200
 
 
@@ -303,6 +264,7 @@ class UKCourier(Courier):
     name = "UK Courier"
     item_price = 700
     rule_ids = [11422, 25764]
+    country_ids = [1]
 
 
 class EUCourier(Courier):
@@ -310,7 +272,7 @@ class EUCourier(Courier):
 
     name = "EU Courier"
     item_price = 1200
-    countries = Courier.EU_country_ids
+    country_ids = Courier.EU_country_ids
     rule_ids = [11243, 11245, 16886, 21557, 22715]
 
 
@@ -319,7 +281,7 @@ class ROWCourier(Courier):
 
     name = "ROW Courier"
     item_price = 2200
-    countries = Courier.ROW_country_ids
+    country_ids = Courier.ROW_country_ids
     rule_ids = [10284, 10390]
 
 
@@ -328,24 +290,12 @@ class ParcelForceEUPriority(Courier):
 
     rule_ids = [27541]
 
-    @classmethod
-    def matches(cls, country_id, rule_id):
-        """
-        Return True if this shipping rule is applicable.
-
-        Args:
-            country_id: The country ID to which the order was sent.
-            rule_id: The shipping rule applied to the order.
-
-        """
-        return rule_id in cls.rule_ids and country_id in cls.countries
-
 
 class ParcelForceEUPriorityGermany(ParcelForceEUPriority):
     """Shipping Rule for Parcel Force Priority to Germany."""
 
     name = "Parcel Force Euro Priority Germany"
-    countries = [3, 27]
+    country_ids = [3, 27]
     item_price = 660
 
 
@@ -353,7 +303,7 @@ class ParcelForceEUPriorityFrance(ParcelForceEUPriority):
     """Shipping Rule for Parcel Force Priority to France."""
 
     name = "Parcel Force Euro Priority France"
-    countries = [2]
+    country_ids = [2]
     item_price = 759
 
 
@@ -361,7 +311,7 @@ class ParcelForceEUPriorityItaly(ParcelForceEUPriority):
     """Shipping Rule for Parcel Force Priority to Italy."""
 
     name = "Parcel Force Euro Priority Italy"
-    countries = [7]
+    country_ids = [7]
     item_price = 1072
 
 
@@ -369,8 +319,8 @@ class ParcelForceUKExpress24(Courier):
     """Shipping Rule for Parcel Force UK Express 24."""
 
     name = "Parcel Force UK 24"
-    countries = [1]
-    rule_ids = [26841]
+    country_ids = [1]
+    rule_ids = [26841, 27352]
     item_price = 550
 
 

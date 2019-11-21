@@ -76,9 +76,10 @@ class Country:
 
         Args:
             row: Table row from 'countries.csv'.
+
         """
         self.row = row
-        self.id = self.row["ID"]
+        self.id = int(self.row["ID"])
         self.name = self.row["Country"]
         self.region = self.row["Region"]
         self.iso_code = self.row["ISO Code"]
@@ -132,6 +133,7 @@ class Service:
         Arg:
             item_price: Price of shipping per item in GBP pence.
             kg_price: Price of shipping per kilogram in GBP pence.
+
         """
         self.item_price = int(item_price)
         self.kg_price = int(kg_price)
@@ -142,6 +144,7 @@ class Service:
 
         Args:
             weight: The weight of the item in kilograms.
+
         """
         return self.item_price + self.calculate_weight_price(weight)
 
@@ -151,5 +154,9 @@ class Service:
 
         Args:
             weight: The weight for which the price will be returned.
+
         """
         return int(weight / 1000 * self.kg_price)
+
+
+countries = Countries()

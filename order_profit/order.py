@@ -2,6 +2,7 @@
 
 import logging
 
+from .countries import countries
 from .product import Product
 
 logger = logging.getLogger("order_profit")
@@ -54,7 +55,7 @@ class Order:
         self.date_recieved = self.dispatch_order.date_recieved
         self.dispatch_date = self.dispatch_order.dispatch_date
         self.country_code = dispatch_order.delivery_country_code
-        self.country = self.update.countries[self.country_code]
+        self.country = countries[self.country_code]
         self.price = int(float(self.dispatch_order.total_gross_gbp) * 100)
         self.purchase_price = None
         self.courier = None
