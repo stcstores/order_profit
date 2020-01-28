@@ -246,7 +246,7 @@ class RoyalMailHeavyAndLarge48(RoyalMail):
     """Shipping rule for Royal Mail Heavy and Large 48 shipping service."""
 
     name = "Royal Mail Heavy and Large 48"
-    item_price = 302
+    item_price = 305
     rule_ids = [9814]
 
 
@@ -254,7 +254,7 @@ class RoyalMailHeavyAndLarge24(RoyalMail):
     """Shipping rule for Royal Mail Heavy and Large 24 shipping service."""
 
     name = "Royal Mail Heavy and Large 24"
-    item_price = 458
+    item_price = 397
     rule_ids = [10114]
 
 
