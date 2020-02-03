@@ -6,4 +6,3 @@ select = B,C,E,F,W,T4,B9,D
 docstring-convention = pep257
 per-file-ignores = 
     */tests/*: D
-    */migrations/*: D
