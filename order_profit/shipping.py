@@ -198,7 +198,7 @@ class RoyalMailUntracked48(RoyalMail):
     """Shipping rule for Royal Mail Untracked 48 shipping service."""
 
     name = "Royal Mail Untracked 48 Packet"
-    item_price = 189
+    item_price = 225
     rule_ids = [9584, 18781]
 
 
@@ -206,7 +206,7 @@ class RoyalMailUntracked24(RoyalMail):
     """Shipping rule for Royal Mail Untracked 24 shipping service."""
 
     name = "Royal Mail Untracked 28"
-    item_price = 283
+    item_price = 294
     rule_ids = [9583]
 
 
@@ -214,7 +214,7 @@ class RoyalMailTracked48Packet(RoyalMail):
     """Shipping rule for Royal Mail Tracked 48 shipping service."""
 
     name = "Royal Mail Tracked 48 Packet"
-    item_price = 305
+    item_price = 360
     rule_ids = [9586, 23750]
 
 
@@ -222,7 +222,7 @@ class RoyalMailTracked24Packet(RoyalMail):
     """Shipping rule for Royal Mail Tracked 24 shipping service."""
 
     name = "Royal Mail Tracked 24 Packet"
-    item_price = 397
+    item_price = 528
     rule_ids = [9585, 10580]
 
 
@@ -230,7 +230,7 @@ class RoyalMail48LargeLetter(RoyalMail):
     """Shipping rule for Royal Mail Large Letter 48 shipping service."""
 
     name = "Royal Mail 48 Large Letter"
-    item_price = 68
+    item_price = 73
     rule_ids = [9588, 18780, 23751]
 
 
@@ -238,7 +238,7 @@ class RoyalMail24LargeLetter(RoyalMail):
     """Shipping rule for Royal Mail Large Letter 24 shipping service."""
 
     name = "Royal Mail 24 Large Letter"
-    item_price = 91
+    item_price = 95
     rule_ids = [9587, 10579]
 
 
@@ -246,7 +246,7 @@ class RoyalMailHeavyAndLarge48(RoyalMail):
     """Shipping rule for Royal Mail Heavy and Large 48 shipping service."""
 
     name = "Royal Mail Heavy and Large 48"
-    item_price = 305
+    item_price = 360
     rule_ids = [9814]
 
 
@@ -254,7 +254,7 @@ class RoyalMailHeavyAndLarge24(RoyalMail):
     """Shipping rule for Royal Mail Heavy and Large 24 shipping service."""
 
     name = "Royal Mail Heavy and Large 24"
-    item_price = 397
+    item_price = 528
     rule_ids = [10114]
 
 
