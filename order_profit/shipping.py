@@ -207,7 +207,7 @@ class RoyalMailUntracked24(RoyalMail):
 
     name = "Royal Mail Untracked 28"
     item_price = 294
-    rule_ids = [9583]
+    rule_ids = [28733]
 
 
 class RoyalMailTracked48Packet(RoyalMail):
