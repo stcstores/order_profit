@@ -14,7 +14,7 @@ ccapi = {git = "https://github.com/stcstores/ccapi.git"}
 flake8 = "^3.7.9"
 flake8-docstrings = "^1.5.0"
 black = "^19.10b0"
-pytest = "^5.3.5"
+pytest = "^5.4.1"
 pytest-cov = "^2.8.1"
 coveralls = "^1.11.1"
 
