@@ -230,7 +230,7 @@ class RoyalMail48LargeLetter(RoyalMail):
     """Shipping rule for Royal Mail Large Letter 48 shipping service."""
 
     name = "Royal Mail 48 Large Letter"
-    item_price = 73
+    item_price = 90
     rule_ids = [9588, 18780, 23751]
 
 
